@@ -1,14 +1,13 @@
 package com.regex.entity;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
-public class Quiz {
-    private int id;
-    private String quiz;
-    private List<Choice> choices;
+public class Choice {
+    private int quiz_id;
+    private String answer1;
+    private String answer2;
+    private String answer3;
 //	/* 登録者*/
 //	private String registed_by;
 //	/* 作成日*/

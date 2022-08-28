@@ -5,7 +5,14 @@
         <title>Hello Thymeleaf</title>
     </head>
     <body>
-    	<h1>quizページです。</h1>
-    	<p th:each="q : ${quiz}" th:text="${q.quiz}" />
+        <h1>quizページです。</h1>
+        <div th:each="q : ${quiz}">
+            <p th:text="${q.quiz}" />
+            <p th:each="c : ${q.choices}">
+                <span th:text="${c.answer1}"></span>
+                <span th:text="${c.answer2}"></span>
+                <span th:text="${c.answer3}"></span>
+            </p>
+        </div>
     </body>
 </html>
