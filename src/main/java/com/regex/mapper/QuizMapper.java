@@ -10,4 +10,6 @@ import com.regex.entity.Quiz;
 public interface QuizMapper {
 
     public List<Quiz> selectAll();
+    
+    public void addQuiz();
 }
