@@ -4,9 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.regex.mapper.QuizMapper">
 	<select id="selectAll" resultType="com.regex.entity.Quiz">
-		select * from quiz
+		select * from quiz inner join
+		choice on quiz.id = choice.quiz_id;
 	</select>
-	<select id="addQuiz" resultType="com.regex.entity.Quiz">
-		<!-- 今度書き足すこと -->
-	</select>
+
+	<!-- クイズ作成 -->
+	<insert id="insertQuiz" parameterType="com.regex.entity.Quiz">
+		INSERT INTO quiz (quiz, created_at, updated_at) VALUES (#{quiz}, current_timestamp, current_timestamp);
+	</insert>
+
+	<!--  選択肢作成 -->
+	<insert id="insertChoice" parameterType="com.regex.entity.Quiz">
+		INSERT INTO choice (quiz_id, answer1, answer2, answer3, created_at, updated_at)
+		VALUES ((select id from quiz order by id desc limit 1),
+		#{answer1}, #{answer2}, #{answer3}, current_timestamp,
+		current_timestamp);
+	</insert>
 </mapper>

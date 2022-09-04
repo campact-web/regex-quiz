@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>new quiz</title>
+<link th:href="@{/css/admin/index.css}" rel="stylesheet">
+</head>
+<body>
+	<h2>クイズ一覧画面</h2>
+	<table border="0">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>問題</th>
+				<th>答え</th>
+				<th>選択肢2</th>
+				<th>選択肢3</th>
+				<th>詳細</th>
+			</tr>
+		<thead>
+		<tbody>
+			<tr th:each="quiz: ${quizes}" th:object="${quiz}">
+				<td th:text="${quiz.id}"></td>
+				<td th:text="${quiz.quiz}"></td>
+				<td th:text="${quiz.answer1}"></td>
+				<td th:text="${quiz.answer2}"></td>
+				<td th:text="${quiz.answer3}"></td>
+				<td>詳細</td>
+			</tr>
+		</tbody>
+	</table>
+	<hr />
+	<h4>クイズ作成</h4>
+	<form method="post" th:action="@{/admin/new}">
+		問題：<input type="text" name="quiz" paceholder="問題文を入力してください" /><br />
+		解答:
+		<input type="text" name="answer1" /><br />
+		選択肢:<input type="text" name="answer2" /><br />
+		選択肢:<input type="text" name="answer3" /><br />
+		<input type="submit" value="登録" />
+	</form>
+</body>
+</html>
