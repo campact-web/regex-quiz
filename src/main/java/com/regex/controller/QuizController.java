@@ -21,25 +21,29 @@ public class QuizController {
     @RequestMapping(value="/quiz")
     public String index(Model model) {
         // 問題を全て取得する
-        List<Quiz> list = quizMapper.selectAll();
+        List<Quiz> quizList = quizMapper.selectAll();
 
-        // 取得した問題をシャッフルする
-        Collections.shuffle(list);
+        // シャッフルする
+        Collections.shuffle(quizList);
 
-        // 出題用リストの生成
-        List<Quiz> questionList = new ArrayList<>();
+        // 選択肢シャッフル用のリストを作成
+        List<String> choiceList = new ArrayList<>();
+        List<String> tmpList = new ArrayList<>();
 
-        // 10問ずつ格納する
-        for (int i = 0; i < 10;i++) {
-            questionList.add(list.get(i));
+        // 選択肢をシャッフル＋10問に絞り込む
+        for (int i = 0; i < 10; i++) {
+            tmpList.add(quizList.get(i).getAnswer1());
+            tmpList.add(quizList.get(i).getAnswer2());
+            tmpList.add(quizList.get(i).getAnswer3());
+            Collections.shuffle(tmpList);
+            choiceList.addAll(tmpList);
+            tmpList.clear();
+            System.out.println(quizList);
+            System.out.println(choiceList);
         }
 
-        model.addAttribute("quiz", questionList);
+        model.addAttribute("quizList", quizList);
+        model.addAttribute("choiceList", choiceList);
         return "quiz";
     }
-
-//	@RequestMapping("/quiz")
-//	public String quiz() {
-//        return "quiz";
-//    }
 }
