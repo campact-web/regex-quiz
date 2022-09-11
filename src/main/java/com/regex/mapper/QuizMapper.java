@@ -11,5 +11,5 @@ public interface QuizMapper {
 
     // クイズを全件取得
     public List<Quiz> selectAll();
-
+    
 }
