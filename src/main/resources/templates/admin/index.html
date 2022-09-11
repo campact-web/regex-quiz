@@ -1,0 +1,61 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>new quiz</title>
+<link th:href="@{/css/admin/index.css}" rel="stylesheet">
+</head>
+<body>
+	<h2>クイズ一覧画面</h2>
+	<table border="0">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>問題</th>
+				<th>答え</th>
+				<th>選択肢2</th>
+				<th>選択肢3</th>
+				<th>詳細</th>
+			</tr>
+		<thead>
+		<tbody>
+			<tr th:each="quiz: ${quizList}" th:object="${quiz}">
+				<td th:text="${quiz.id}"></td>
+				<td th:text="${quiz.quiz}"></td>
+				<td th:text="${quiz.answer1}"></td>
+				<td th:text="${quiz.answer2}"></td>
+				<td th:text="${quiz.answer3}"></td>
+				<td>詳細</td>
+			</tr>
+<!-- 			<tr th:each="q, stat:${quizList}"> -->
+<!-- 				<td:block th:with="i=${stat.index}*3"> -->
+<!-- 					<td th:text="${stat.count}">問目</td> -->
+<!-- 					<td th:text="${q.quiz}" /></td> -->
+<!-- 					<td th:text="${choiceList.get({i})}"></td> -->
+<!-- 					<td th:text="${choiceList.get({i+1})}"></td> -->
+<!-- 					<td th:text="${choiceList.get({i+2})}"></td> -->
+<!-- 				</td:block>			 -->
+<!-- 			</tr> -->
+		</tbody>
+	</table>
+	<h1>quizページです。</h1>
+<!-- 	<div th:each="q, stat : ${quizList}"> -->
+<!-- 		<p th:text="${stat.count}">問目</p> -->
+<!-- 		<p th:text="${q.quiz}" /> -->
+<!-- 		<th:block th:with="i=${stat.index}*3"> -->
+<!-- 			<span th:text="${choiceList.get({i})}"></span> -->
+<!-- 			<span th:text="${choiceList.get({i+1})}"></span> -->
+<!-- 			<span th:text="${choiceList.get({i+2})}"></span> -->
+<!-- 		</th:block> -->
+<!-- 	</div> -->
+	<hr />
+	<h4>クイズ作成</h4>
+	<form method="post" th:action="@{/admin/new}">
+		問題：<input type="text" name="quiz" placeholder="問題文を入力" /><br />
+		解答: <input type="text" name="answer1" /><br />
+		選択肢:<input type="text" name="answer2" /><br />
+		選択肢:<input type="text" name="answer3" /><br />
+		<input type="submit" value="登録" />
+	</form>
+</body>
+</html>
