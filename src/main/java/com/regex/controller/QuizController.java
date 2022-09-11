@@ -38,8 +38,6 @@ public class QuizController {
             Collections.shuffle(tmpList);
             choiceList.addAll(tmpList);
             tmpList.clear();
-            System.out.println(quizList);
-            System.out.println(choiceList);
         }
 
         model.addAttribute("quizList", quizList);
