@@ -9,7 +9,7 @@ import com.regex.entity.Quiz;
 @Mapper
 public interface QuizMapper {
 
+    // クイズを全件取得
     public List<Quiz> selectAll();
     
-    public void addQuiz();
 }

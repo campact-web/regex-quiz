@@ -3,10 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.regex.mapper.QuizMapper">
-	<select id="selectAll" resultType="com.regex.entity.Quiz">
-		select * from quiz
-	</select>
-	<select id="addQuiz" resultType="com.regex.entity.Quiz">
-		<!-- 今度書き足すこと -->
-	</select>
+    <select id="selectAll" resultType="com.regex.entity.Quiz">
+        select id, quiz, answer1, answer2, answer3 from quiz
+    </select>   
 </mapper>

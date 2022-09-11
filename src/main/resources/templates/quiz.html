@@ -5,7 +5,15 @@
         <title>Hello Thymeleaf</title>
     </head>
     <body>
-    	<h1>quizページです。</h1>
-    	<p th:each="q : ${quiz}" th:text="${q.quiz}" />
+        <h1>quizページです。</h1>
+        <div th:each="q, stat : ${quizList}">
+            <p th:text="${stat.count}">問目</p>
+            <p th:text="${q.quiz}" />
+            <th:block th:with="i=${stat.index}*3">
+                <span th:text="${choiceList.get({i})}"></span>
+                <span th:text="${choiceList.get({i+1})}"></span>
+                <span th:text="${choiceList.get({i+2})}"></span>
+            </th:block>
+        </div>
     </body>
 </html>

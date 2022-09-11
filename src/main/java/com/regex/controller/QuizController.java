@@ -1,5 +1,7 @@
 package com.regex.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +15,33 @@ import com.regex.mapper.QuizMapper;
 @Controller
 public class QuizController {
 
-	@Autowired
+    @Autowired
     QuizMapper quizMapper;
-	
+
     @RequestMapping(value="/quiz")
     public String index(Model model) {
-        List<Quiz> list = quizMapper.selectAll();
-        model.addAttribute("quiz",list);
+        // 問題を全て取得する
+        List<Quiz> quizList = quizMapper.selectAll();
+
+        // シャッフルする
+        Collections.shuffle(quizList);
+
+        // 選択肢シャッフル用のリストを作成
+        List<String> choiceList = new ArrayList<>();
+        List<String> tmpList = new ArrayList<>();
+
+        // 選択肢をシャッフル＋10問に絞り込む
+        for (int i = 0; i < 10; i++) {
+            tmpList.add(quizList.get(i).getAnswer1());
+            tmpList.add(quizList.get(i).getAnswer2());
+            tmpList.add(quizList.get(i).getAnswer3());
+            Collections.shuffle(tmpList);
+            choiceList.addAll(tmpList);
+            tmpList.clear();
+        }
+
+        model.addAttribute("quizList", quizList);
+        model.addAttribute("choiceList", choiceList);
         return "quiz";
     }
-	
-//	@RequestMapping("/quiz")
-//	public String quiz() {
-//        return "quiz";
-//    }
 }
