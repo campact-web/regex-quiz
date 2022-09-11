@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.regex.mapper.QuizMapper">
-<<<<<<< HEAD
+	<!-- クイズを全件検索 -->
     <select id="selectAll" resultType="com.regex.entity.Quiz">
         select id, quiz, answer1, answer2, answer3 from quiz;
     </select>
@@ -11,23 +11,5 @@
 	<insert id="insertQuiz" parameterType="com.regex.entity.Quiz">
 		INSERT INTO quiz (quiz, answer1, answer2, answer3, created_at, updated_at)
 		VALUES (#{quiz}, #{answer1}, #{answer2}, #{answer3}, current_timestamp, current_timestamp);
-=======
-	<select id="selectAll" resultType="com.regex.entity.Quiz">
-		select * from quiz inner join
-		choice on quiz.id = choice.quiz_id;
-	</select>
-
-	<!-- クイズ作成 -->
-	<insert id="insertQuiz" parameterType="com.regex.entity.Quiz">
-		INSERT INTO quiz (quiz, created_at, updated_at) VALUES (#{quiz}, current_timestamp, current_timestamp);
-	</insert>
-
-	<!--  選択肢作成 -->
-	<insert id="insertChoice" parameterType="com.regex.entity.Quiz">
-		INSERT INTO choice (quiz_id, answer1, answer2, answer3, created_at, updated_at)
-		VALUES ((select id from quiz order by id desc limit 1),
-		#{answer1}, #{answer2}, #{answer3}, current_timestamp,
-		current_timestamp);
->>>>>>> e31d31d95f12004a9100cd6602dbcd85c59141b1
 	</insert>
 </mapper>
