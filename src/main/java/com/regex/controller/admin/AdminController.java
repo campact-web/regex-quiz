@@ -22,13 +22,21 @@ public class AdminController {
 	@RequestMapping(value="index")
 	public String getQuizNew(Model model) {
 		List<Quiz> list = quizMapper.selectAll();
+<<<<<<< HEAD
 		model.addAttribute("quizList", list);
+=======
+		model.addAttribute("quizes", list);
+>>>>>>> e31d31d95f12004a9100cd6602dbcd85c59141b1
 		return "admin/index";
 	}
 	@RequestMapping(value="/new")
 	public String postQuizAdd(@ModelAttribute QuizForm form, Quiz quiz) {
 		/*画面から入力された値をもとに新規でクイズを登録する*/
 		quizMapper.insertQuiz(form);
+<<<<<<< HEAD
+=======
+		quizMapper.insertChoice(form);
+>>>>>>> e31d31d95f12004a9100cd6602dbcd85c59141b1
 		return "redirect:/admin/index";
 	}
 	

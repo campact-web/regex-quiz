@@ -19,7 +19,11 @@
 			</tr>
 		<thead>
 		<tbody>
+<<<<<<< HEAD
 			<tr th:each="quiz: ${quizList}" th:object="${quiz}">
+=======
+			<tr th:each="quiz: ${quizes}" th:object="${quiz}">
+>>>>>>> e31d31d95f12004a9100cd6602dbcd85c59141b1
 				<td th:text="${quiz.id}"></td>
 				<td th:text="${quiz.quiz}"></td>
 				<td th:text="${quiz.answer1}"></td>
@@ -27,6 +31,7 @@
 				<td th:text="${quiz.answer3}"></td>
 				<td>詳細</td>
 			</tr>
+<<<<<<< HEAD
 <!-- 			<tr th:each="q, stat:${quizList}"> -->
 <!-- 				<td:block th:with="i=${stat.index}*3"> -->
 <!-- 					<td th:text="${stat.count}">問目</td> -->
@@ -53,6 +58,16 @@
 	<form method="post" th:action="@{/admin/new}">
 		問題：<input type="text" name="quiz" placeholder="問題文を入力" /><br />
 		解答: <input type="text" name="answer1" /><br />
+=======
+		</tbody>
+	</table>
+	<hr />
+	<h4>クイズ作成</h4>
+	<form method="post" th:action="@{/admin/new}">
+		問題：<input type="text" name="quiz" paceholder="問題文を入力してください" /><br />
+		解答:
+		<input type="text" name="answer1" /><br />
+>>>>>>> e31d31d95f12004a9100cd6602dbcd85c59141b1
 		選択肢:<input type="text" name="answer2" /><br />
 		選択肢:<input type="text" name="answer3" /><br />
 		<input type="submit" value="登録" />
