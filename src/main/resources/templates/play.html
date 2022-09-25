@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="styles/reset.min.css" />
+	<link rel="stylesheet" href="styles/style.css" />
+	<link rel="stylesheet" href="styles/header-15.css" />
+<!-- 	<link th:href="@{/css/top.css}" rel="stylesheet"> -->
+	<title>Insert title here</title>
+</head>
+			<h3 th:text="|第__${session.count}__問|"></h3>
+            <h4 th:text="${oneQuiz.quiz}" /></h4>
+            	<th:block th:each="i:${#numbers.sequence(0, 2)}">
+            		<button th:text="|${oneQuiz.answer__${quizNumber[i]}__}|"></button>
+            	</th:block>
+<!--             	<p th:utext="${session.quiz_session}"> -->
+    </body>
+</html>
