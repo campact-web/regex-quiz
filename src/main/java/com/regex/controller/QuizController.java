@@ -42,7 +42,7 @@ public class QuizController {
 		return "quiz";
 	}
 
-	/* クイズを出題する-初回 */
+	/* クイズを出題する-10問 */
 	@RequestMapping(value = "/play")
 	public String getQuizPlay(Model model, HttpServletRequest request, HttpServletResponse response) {
 		List<Quiz> quizPlayList = new ArrayList<>();
@@ -51,23 +51,32 @@ public class QuizController {
 		List<Quiz> quiz_session = null;
 		int i = 0;
 		String str = null;
+		Quiz oneQuiz = null;
 
-		//➁セッションに前回の値があった場合は取出して iに格納
-		if(session.getAttribute("session") != null) {
-			i = (int)session.getAttribute("session");
+		//➁セッションに前回の値があった場合（第二問目以降）
+		if(session.getAttribute("quiz_session") != null) {
+			i = (int)session.getAttribute("count");
+			if(i == 10) {
+				System.out.println("10問終了です。");
+				return "result";
+			}
 			quizPlayList = (List<Quiz>)session.getAttribute("quiz_session");
 			str = "holding a session";
 		}
+		//問題出題(初回)
+		else{
+			//10問ランダムに取得する
+			quizPlayList = quizMapper.selectQuiz10();
+		}
 		i++;
 		
-		//10問ランダムに取得する
-		quizPlayList = quizMapper.selectQuiz10();
-		Quiz oneQuiz = quizPlayList.get(0);
+		//問題リストから1問取得する
+		oneQuiz = quizPlayList.get(0);
 		// 出題した問題をリストから削除する
 		quizPlayList.remove(0);
-		session.setAttribute("session", i);
+		session.setAttribute("count", i);
 		session.setAttribute("quiz_session", quizPlayList);
-		
+//		
 		// 選択肢1~3をランダムに表示するためのリストを生成
 		int[] quizNumber = { 1, 2, 3 };
 		shuffle(quizNumber); 
