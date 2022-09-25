@@ -7,6 +7,16 @@
     <select id="selectAll" resultType="com.regex.entity.Quiz">
         select id, quiz, answer1, answer2, answer3 from quiz;
     </select>
+    <!-- クイズをランダムに10問セレクトする -->
+    <select id="selectQuiz10" resultType="com.regex.entity.Quiz">
+    	select id, quiz, answer1, answer2, answer3 from quiz ORDER BY random() LIMIT 10;
+    </select>
+    <!-- クイズをランダムに1問セレクトする -->
+    <select id="selectQuiz1" resultType="com.regex.entity.Quiz">
+    	select id, quiz, answer1, answer2, answer3 from quiz 
+    	WHERE id not exists (#{id});
+    	ORDER BY random() LIMIT 1;
+    </select>
     <!-- クイズ作成 -->
 	<insert id="insertQuiz" parameterType="com.regex.entity.Quiz">
 		INSERT INTO quiz (quiz, answer1, answer2, answer3, created_at, updated_at)

@@ -13,6 +13,12 @@ public interface QuizMapper {
     // クイズを全件取得
     public List<Quiz> selectAll();
     
+    /* クイズをランダムに10問取得する*/
+    public List<Quiz> selectQuiz10();
+    
+    /* クイズをランダムに1問取得する*/
+    public List<Quiz> selectQuiz1();
+    
     /* 問題を作成する*/
     public void insertQuiz(QuizForm form);
     
