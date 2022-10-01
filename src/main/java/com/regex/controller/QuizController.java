@@ -14,9 +14,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.regex.entity.Quiz;
+import com.regex.form.QuizForm;
 import com.regex.mapper.QuizMapper;
 
 @Controller
@@ -24,6 +26,14 @@ public class QuizController {
 
 	@Autowired
 	QuizMapper quizMapper;
+	
+	
+	private List<Quiz> quizPlayList = new ArrayList<>();
+	private List<Quiz> quiz_session = null;
+	private int i = 0;
+	private Quiz oneQuiz = null;
+	/* 正解数*/
+	private int correctCount = 0;
 
 	@RequestMapping(value = "/quiz")
 	public String getUserQuiz(Model model) {
@@ -42,26 +52,32 @@ public class QuizController {
 		return "quiz";
 	}
 
+
 	/* クイズを出題する-10問 */
 	@RequestMapping(value = "/play")
-	public String getQuizPlay(Model model, HttpServletRequest request, HttpServletResponse response) {
-		List<Quiz> quizPlayList = new ArrayList<>();
+	public String postQuizPlay(@ModelAttribute QuizForm quizForm, Model model, HttpServletRequest request, HttpServletResponse response) {
 		//➀セッションの作成・取得
 		HttpSession session = request.getSession();
-		List<Quiz> quiz_session = null;
-		int i = 0;
-		String str = null;
-		Quiz oneQuiz = null;
 
 		//➁セッションに前回の値があった場合（第二問目以降）
 		if(session.getAttribute("quiz_session") != null) {
+			//正誤判定を行う
+//			System.out.println(str);
+			if(quizForm.getAnswer1() != null) {
+				//正解の場合、モーダル
+				System.out.println("正解です");
+				correctCount++;
+				System.out.println(correctCount);
+			}
+			
 			i = (int)session.getAttribute("count");
-			if(i == 10) {
+			if(i >= 10) {
+				session.removeAttribute("count");
+				session.removeAttribute("quiz_session");
 				System.out.println("10問終了です。");
 				return "result";
 			}
 			quizPlayList = (List<Quiz>)session.getAttribute("quiz_session");
-			str = "holding a session";
 		}
 		//問題出題(初回)
 		else{
@@ -102,7 +118,8 @@ public class QuizController {
 	        quizNumber[i] = tmp;
 	    }
 	}
-
+	
+	
 //  @RequestMapping(value="/quiz")
 //  public String index(Model model) {
 //      // 問題を全て取得する

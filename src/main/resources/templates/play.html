@@ -9,11 +9,21 @@
 <!-- 	<link th:href="@{/css/top.css}" rel="stylesheet"> -->
 	<title>Insert title here</title>
 </head>
+	<form method="post" th:action="@{/play}" th:object="${quizForm}">
+<!-- 	<form method="post" th:action="@{/play}"> -->
 			<h3 th:text="|第__${session.count}__問|"></h3>
             <h4 th:text="${oneQuiz.quiz}" /></h4>
             	<th:block th:each="i:${#numbers.sequence(0, 2)}">
-            		<button th:text="|${oneQuiz.answer__${quizNumber[i]}__}|"></button>
+<!--             	        <input th:text="|${oneQuiz.answer__${quizNumber[i]}__}|" type="radio"  name="${quizNumber[i]}"> -->
+<!--             		<p><span th:text="${i++}"></span> -->
+						<!-- ラジオボタン実装しないとやはりだめなのか？？ -->
+            	        <span th:text="|${oneQuiz.answer__${quizNumber[i]}__}|" /></span>
+            	    </p>
             	</th:block>
-<!--             	<p th:utext="${session.quiz_session}"> -->
+            <div>
+			 	<input type="submit" value="回答する">
+			</div>
+	</form>
     </body>
+    <script th:src="@{/js/play.js}"></script>
 </html>
