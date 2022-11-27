@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="styles/reset.min.css" />
-	<link rel="stylesheet" href="styles/style.css" />
-	<link rel="stylesheet" href="styles/header-15.css" />
-<!-- 	<link th:href="@{/css/top.css}" rel="stylesheet"> -->
-	<title>Insert title here</title>
+<head th:replace="common :: meta_header('Quiz',~{::link},~{::script})">
 </head>
         <div th:each="q, stat : ${quizList}">
             <h3 th:text="|第${stat.count}問目|"></h3>
             <h4 th:text="${q.quiz}" /></h4>
-            	<th:block th:with="i=${stat.index}*3">
-                	<button th:text="${quizNumberList.get(i)}"></button>
-                	<button th:text="${quizNumberList.get(i+1)}"></button>
-                	<button th:text="${quizNumberList.get(i+2)}"></button>
-            	</th:block>
+                <th:block th:with="i=${stat.index}*3">
+                    <button th:text="${quizNumberList.get(i)}"></button>
+                    <button th:text="${quizNumberList.get(i+1)}"></button>
+                    <button th:text="${quizNumberList.get(i+2)}"></button>
+                </th:block>
 <!--             <th:block th:each="i : ${#numbers.sequence(0,2)}"> -->
 <!-- 				<th:block th:each="i : ${quizNumberList.sequence(0,2)}"> -->
 <!--             	<div> -->
@@ -25,7 +18,7 @@
 <!--             	</div> -->
 <!--             	|${hogehoge__${stat.count}__}| -->
 <!--             	th:text="|prefix_${変数}_postfix|" -->
-           	</th:block>
+               </th:block>
             </div>
          </div>
     </body>
