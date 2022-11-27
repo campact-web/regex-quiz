@@ -14,12 +14,16 @@
                 <th:block th:each="i:${#numbers.sequence(0, 2)}">
                     <th:block th:each="item : ${radioAnswer}">
                         <th:block th:if="${quizNumber[i] == item.key.intValue()}">
-                            <input type="radio" class="form-check-input" th:text="${item.value}" th:value="${item.key}">
+                            <input type="radio" class="form-check-input" th:text="${item.value}" th:value="${item.value}" name="selectedAnswer">
                         </th:block>
                     </th:block>
                 </th:block>
             </div>
-        <button type="submit" class="btn btn-primary">回答する</button>
+        <button type="submit" name="answer" class="btn btn-primary">回答する</button>
     </form>
+    <th:block th:if="${message != null}">
+        <div th:text="${message}"></div>
+        <a class="btnStart" href="./play">次へ</a>
+    </th:block>
 </body>
 </html>

@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.regex.entity.Quiz;
 import com.regex.mapper.QuizMapper;
@@ -27,11 +29,24 @@ public class QuizController {
 
 
     private List<Quiz> quizPlayList = new ArrayList<>();
-    private List<Quiz> quiz_session = null;
+
+    /* 問題の項番 */
     private int i = 0;
+    /* 出題する問題 */
     private Quiz oneQuiz = null;
-    /* 正解数*/
+    /* ラジオボタン  */
+    Map<Integer, String> radioAnswer = new HashMap<>();
+    /* 正解数 */
     private int correctCount = 0;
+    /* メッセージ */
+    private String message = null;
+    /* セッション */
+    private List<Quiz> session_quizPlayList = null;
+    private Quiz session_oneQuiz = null;
+    private int[] session_quizNumber = null;
+    private Map<Integer, String> session_radioAnswer = null;
+    private int session_correctCount = 0;
+
 
 //	@RequestMapping(value = "/quiz")
 //	public String getUserQuiz(Model model) {
@@ -52,14 +67,13 @@ public class QuizController {
 
 
     /* クイズを出題する-10問 */
-    @RequestMapping(value = "/play")
-    public String postQuizPlay(Model model, HttpServletRequest request, HttpServletResponse response) {
+    @GetMapping(value = "/play")
+    public String getQuizPlay(Model model, HttpServletRequest request, HttpServletResponse response) {
         //➀セッションの作成・取得
         HttpSession session = request.getSession();
 
         //➁セッションに前回の値があった場合（第二問目以降）
-        if(session.getAttribute("quiz_session") != null) {
-            correctCount++;
+        if(session.getAttribute("session_quizPlayList") != null) {
             //正誤判定を行う
 //			System.out.println(str);
 //            if(quizForm.getAnswer1() != null) {
@@ -69,14 +83,15 @@ public class QuizController {
 //                System.out.println(correctCount);
 //            }
 
+           // 10問出題済みなら結果画面に遷移する
             i = (int)session.getAttribute("count");
             if(i >= 10) {
                 session.removeAttribute("count");
-                session.removeAttribute("quiz_session");
+                session.removeAttribute("session_quizPlayList");
                 System.out.println("10問終了です。");
                 return "result";
             }
-            quizPlayList = (List<Quiz>)session.getAttribute("quiz_session");
+            quizPlayList = (List<Quiz>)session.getAttribute("session_quizPlayList");
         }
         //問題出題(初回)
         else{
@@ -87,20 +102,20 @@ public class QuizController {
 
         //問題リストから1問取得する
         oneQuiz = quizPlayList.get(0);
-        // 出題した問題をリストから削除する
-        quizPlayList.remove(0);
         session.setAttribute("count", i);
-        session.setAttribute("quiz_session", quizPlayList);
+        session.setAttribute("session_quizPlayList", quizPlayList);
+        session.setAttribute("session_oneQuiz", oneQuiz);
 
         // 選択肢1~3をランダムに表示するためのリストを生成
         int[] quizNumber = { 1, 2, 3 };
         shuffle(quizNumber);
+        session.setAttribute("session_quizNumber", quizNumber);
 
         // ラジオボタン
-        Map<Integer, String> radioAnswer = new HashMap<>();
         radioAnswer.put(1, oneQuiz.getAnswer1());
         radioAnswer.put(2, oneQuiz.getAnswer2());
         radioAnswer.put(3, oneQuiz.getAnswer3());
+        session.setAttribute("session_radioAnswer", radioAnswer);
 
         model.addAttribute("oneQuiz", oneQuiz);
         model.addAttribute("quizNumber", quizNumber);
@@ -123,5 +138,39 @@ public class QuizController {
             quizNumber[index] = quizNumber[i];
             quizNumber[i] = tmp;
         }
+    }
+
+    /* 答え合わせする */
+    @PostMapping(value = "/play", params = "answer")
+    public String checkAnswer(@RequestParam String selectedAnswer, Model model, HttpServletRequest request, HttpServletResponse response) {
+        // セッション情報を取得
+        HttpSession session = request.getSession();
+        oneQuiz = (Quiz)session.getAttribute("session_oneQuiz");
+        int[] quizNumber = (int[])session.getAttribute("session_quizNumber");
+        radioAnswer = (Map<Integer, String>)session.getAttribute("session_radioAnswer");
+        // 出題した問題の正答を取得
+        String answer = oneQuiz.getAnswer1();
+
+        // 出題した問題をリストから削除する
+        quizPlayList.remove(0);
+        session.setAttribute("session_quizPlayList", quizPlayList);
+
+        // 答え合わせを行う
+        if (selectedAnswer.equals(answer)) {
+            message = "正解です！！";
+            correctCount++;
+            session.setAttribute("session_correctCount", correctCount);
+        } else {
+            message = "不正解！！";
+        }
+
+        model.addAttribute("message", message);
+        model.addAttribute("oneQuiz", oneQuiz);
+        model.addAttribute("quizNumber", quizNumber);
+        model.addAttribute("radioAnswer", radioAnswer);
+        // 以下だとmessageの値が引き継がれない
+        // return "redirect:/play";
+        // return getQuizPlay(model, request, response);
+        return "play";
     }
 }
