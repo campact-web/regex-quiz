@@ -1,4 +1,4 @@
-/* 
+/*
 ** The Header Media Queries **
 ** Tweak as per your needs **
 */
@@ -52,7 +52,7 @@
       position: absolute;
       right: 1rem;
       top: 1rem; } }
-      
+
 ul{
   list-style-type: none;
 }
@@ -61,7 +61,7 @@ ol{
   list-style-type: none;
 }
 
-.btn{
+.btnStart{
   display:block;
   width:70px;
   height:70px;

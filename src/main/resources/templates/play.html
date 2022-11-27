@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="styles/reset.min.css" />
-	<link rel="stylesheet" href="styles/style.css" />
-	<link rel="stylesheet" href="styles/header-15.css" />
-<!-- 	<link th:href="@{/css/top.css}" rel="stylesheet"> -->
-	<title>Insert title here</title>
+<head th:replace="common :: meta_header('Play',~{::link},~{::script})">
+<script th:src="@{/js/play.js}"></script>
 </head>
-	<form method="post" th:action="@{/play}" th:object="${quizForm}">
+<body>
+    <form method="post" th:action="@{/play}" th:object="${quizForm}">
 <!-- 	<form method="post" th:action="@{/play}"> -->
-			<h3 th:text="|第__${session.count}__問|"></h3>
+            <h3 th:text="|第__${session.count}__問|"></h3>
             <h4 th:text="${oneQuiz.quiz}" /></h4>
-            	<th:block th:each="i:${#numbers.sequence(0, 2)}">
+                <th:block th:each="i:${#numbers.sequence(0, 2)}">
 <!--             	        <input th:text="|${oneQuiz.answer__${quizNumber[i]}__}|" type="radio"  name="${quizNumber[i]}"> -->
 <!--             		<p><span th:text="${i++}"></span> -->
-						<!-- ラジオボタン実装しないとやはりだめなのか？？ -->
-            	        <span th:text="|${oneQuiz.answer__${quizNumber[i]}__}|" /></span>
-            	    </p>
-            	</th:block>
+                        <!-- ラジオボタン実装しないとやはりだめなのか？？ -->
+                        <span th:text="|${oneQuiz.answer__${quizNumber[i]}__}|" /></span>
+                    </p>
+                </th:block>
             <div>
-			 	<input type="submit" value="回答する">
-			</div>
-	</form>
-    </body>
-    <script th:src="@{/js/play.js}"></script>
+                 <input type="submit" value="回答する">
+            </div>
+    </form>
+</body>
+<script th:src="@{/js/play.js}"></script>
 </html>
