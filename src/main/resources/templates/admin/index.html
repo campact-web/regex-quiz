@@ -4,9 +4,14 @@
 <meta charset="UTF-8" />
 <title>new quiz</title>
 <link th:href="@{/css/admin/index.css}" rel="stylesheet">
+<head th:replace="common :: meta_header('index',~{::link},~{::script})">
 </head>
 <body>
 	<h2>クイズ一覧画面</h2>
+	<a href="./new">クイズを登録する</a>
+	<th:block th:if="${successMsgFlg}">
+		<div class="alert alert-primary" role="alert"><p>登録完了しました。</p></div>
+	</th:block>
 	<table border="0">
 		<thead>
 			<tr>
@@ -15,29 +20,18 @@
 				<th>答え</th>
 				<th>選択肢2</th>
 				<th>選択肢3</th>
-				<th>詳細</th>
-			</tr>
+				<th>編集</th>
 		<thead>
 		<tbody>
 			<tr th:each="quiz: ${quizList}" th:object="${quiz}">
 				<td th:text="${quiz.id}"></td>
 				<td th:text="${quiz.quiz}"></td>
-				<td th:text="${quiz.answer1}"></td>
+				<td th:text="${quiz.answer1}" class="text-danger"></td>
 				<td th:text="${quiz.answer2}"></td>
 				<td th:text="${quiz.answer3}"></td>
-				<td>詳細</td>
+				<td><button type="button" class="btn btn-outline-info">編集</button></td>
 			</tr>
 		</tbody>
 	</table>
-	<hr />
-	<h4>クイズ作成</h4>
-	<form method="post" th:action="@{/admin/new}">
-		問題：<input type="text" name="quiz" paceholder="問題文を入力してください" /><br />
-		解答:
-		<input type="text" name="answer1" /><br />
-		選択肢:<input type="text" name="answer2" /><br />
-		選択肢:<input type="text" name="answer3" /><br />
-		<input type="submit" value="登録" />
-	</form>
 </body>
 </html>

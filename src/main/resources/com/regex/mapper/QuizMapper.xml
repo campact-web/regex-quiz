@@ -22,4 +22,9 @@
 		INSERT INTO quiz (quiz, answer1, answer2, answer3, created_at, updated_at)
 		VALUES (#{quiz}, #{answer1}, #{answer2}, #{answer3}, current_timestamp, current_timestamp);
 	</insert>
+	<!-- csvからクイズ作成 -->
+	<insert id="createCsvQuiz" parameterType="com.regex.entity.Quiz">
+		INSERT INTO quiz (quiz, answer1, answer2, answer3, created_at, updated_at)
+		VALUES (#{quiz}, #{answer1}, #{answer2}, #{answer3}, current_timestamp, current_timestamp);
+	</insert>
 </mapper>

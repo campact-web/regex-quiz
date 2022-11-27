@@ -1,0 +1,25 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>new quiz</title>
+<head th:replace="common :: meta_header('New',~{::link},~{::script})">
+</head>
+<body>
+	<h4>クイズ登録画面</h4>
+	<a href="./index">クイズ一覧画面へ</a>
+	<form method="post" th:action="@{/admin/new}">
+		<p>問題：<input type="text" name="quiz" placeholder="問題文を入力してください" /></p>
+		<p>解答：<input type="text" name="answer1" /></p>
+		<p>選択肢：<input type="text" name="answer2" /></p>
+		<p>選択肢：<input type="text" name="answer3" /></p>
+		<p><input type="submit" value="登録" />	</p>
+	</form>
+	<h4>csvファイルアップロード</h4>
+	<p>csvファイルからクイズを作成する。一括登録が可能。</p>
+	<form method="post" action="upload" enctype="multipart/form-data">
+		<p><input type="file" name="file"></p>
+		<p><input type="submit" name="upload_file" value="ファイルをアップロードする"></p>
+	</form>
+</body>
+</html>

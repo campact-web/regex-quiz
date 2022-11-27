@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.regex.dto.QuizDto;
 import com.regex.entity.Quiz;
 import com.regex.form.QuizForm;
 
@@ -21,5 +22,8 @@ public interface QuizMapper {
     
     /* 問題を作成する*/
     public void insertQuiz(QuizForm form);
+    
+    /* csvファイルから問題を作成する*/
+    public void createCsvQuiz(QuizDto dto);
     
 }
