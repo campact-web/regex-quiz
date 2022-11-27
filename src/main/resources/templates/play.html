@@ -4,21 +4,22 @@
 <script th:src="@{/js/play.js}"></script>
 </head>
 <body>
-    <form method="post" th:action="@{/play}" th:object="${quizForm}">
-<!-- 	<form method="post" th:action="@{/play}"> -->
-            <h3 th:text="|第__${session.count}__問|"></h3>
-            <h4 th:text="${oneQuiz.quiz}" /></h4>
+    <form method="post" th:action="@{/play}">
+        <h3 th:text="|第__${session.count}__問|"></h3>
+        <h4 th:text="${oneQuiz.quiz}" /></h4>
+            <!-- <th:block th:each="i:${#numbers.sequence(0, 2)}">
+                <span th:text="|${oneQuiz.answer__${quizNumber[i]}__}|" /></span>
+            </th:block> -->
+            <div class="form-check-inline">
                 <th:block th:each="i:${#numbers.sequence(0, 2)}">
-<!--             	        <input th:text="|${oneQuiz.answer__${quizNumber[i]}__}|" type="radio"  name="${quizNumber[i]}"> -->
-<!--             		<p><span th:text="${i++}"></span> -->
-                        <!-- ラジオボタン実装しないとやはりだめなのか？？ -->
-                        <span th:text="|${oneQuiz.answer__${quizNumber[i]}__}|" /></span>
-                    </p>
+                    <th:block th:each="item : ${radioAnswer}">
+                        <th:block th:if="${quizNumber[i] == item.key.intValue()}">
+                            <input type="radio" class="form-check-input" th:text="${item.value}" th:value="${item.key}">
+                        </th:block>
+                    </th:block>
                 </th:block>
-            <div>
-                 <input type="submit" value="回答する">
             </div>
+        <button type="submit" class="btn btn-primary">回答する</button>
     </form>
 </body>
-<script th:src="@{/js/play.js}"></script>
 </html>
