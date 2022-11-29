@@ -99,4 +99,22 @@ public class AdminController {
 
 	    return "redirect:/admin/index";
 	  }
+	
+	/*
+	 * クイズ詳細画面
+	 * 機能: クイズ詳細画面を表示する
+	 */
+	@RequestMapping(value="/show")
+	public String showQuiz() {
+		return "admin/show";
+	}
+	
+	/*
+	 * クイズ編集画面
+	 * 機能: クイズ編集画面を表示する
+	 */
+	@RequestMapping(value="/edit")
+	public String editQuiz() {
+		return "admin/edit";
+	}
 }

@@ -1,0 +1,16 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>new quiz</title>
+<link th:href="@{/css/admin/show.css}" rel="stylesheet">
+<head th:replace="common :: meta_header('show',~{::link},~{::script})">
+</head>
+<body>
+	<h2>クイズ詳細画面</h2>
+	<a href="./new">クイズを登録する</a>
+	<a href="./index">クイズ一覧</a>
+	<a href="./edit">クイズを編集する</a>
+
+</body>
+</html>
