@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import com.regex.dto.QuizDto;
 import com.regex.entity.Quiz;
 import com.regex.form.QuizForm;
 import com.regex.mapper.QuizMapper;
+import com.regex.mapper.admin.AdminMapper;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,6 +29,9 @@ public class AdminController {
 
 	@Autowired
     QuizMapper quizMapper;
+	
+	@Autowired
+	AdminMapper adminMapper;
 	
 	/* サクセスメッセージフラグ*/
 	private boolean successMsgFlg = false;
@@ -104,8 +109,12 @@ public class AdminController {
 	 * クイズ詳細画面
 	 * 機能: クイズ詳細画面を表示する
 	 */
-	@RequestMapping(value="/show")
-	public String showQuiz() {
+	@RequestMapping(value="/show/{id}", method=RequestMethod.GET)
+	public String showQuiz(@PathVariable int id, Model model) {
+		//リファクタリング。サービスクラスを作成すること。
+		Quiz quizset = quizMapper.selectQuizset(id).get(0);
+		model.addAttribute("quizset", quizset);
+		
 		return "admin/show";
 	}
 	
@@ -117,4 +126,11 @@ public class AdminController {
 	public String editQuiz() {
 		return "admin/edit";
 	}
+	
+//	  @GetMapping("/user/{id}")
+//	  public String displayView(@PathVariable Long id, Model model) {
+//	    User user = userService.findById(id);
+//	    model.addAttribute("userData", user);
+//	    return "user/view";
+//	  }
 }

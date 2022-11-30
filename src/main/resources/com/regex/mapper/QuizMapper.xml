@@ -27,4 +27,9 @@
 		INSERT INTO quiz (quiz, answer1, answer2, answer3, created_at, updated_at)
 		VALUES (#{quiz}, #{answer1}, #{answer2}, #{answer3}, current_timestamp, current_timestamp);
 	</insert>
+	
+	 <!-- クイズセット情報取得(1件) --> 
+    <select id="selectQuizset" resultType="com.regex.entity.Quiz">
+        select id, quiz, answer1, answer2, answer3 from quiz where id=#{id};
+    </select>
 </mapper>
