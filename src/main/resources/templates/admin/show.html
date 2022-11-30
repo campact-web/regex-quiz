@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>new quiz</title>
+<link th:href="@{/css/admin/show.css}" rel="stylesheet">
+<head th:replace="common :: meta_header('show',~{::link},~{::script})">
+</head>
+<body>
+	<h2>クイズ詳細画面</h2>
+	<a href="/admin/new">クイズを登録する</a>
+	<a href="/admin/index">クイズ一覧</a>
+	<a href="/admin/edit">クイズを編集する</a>
+	
+	<div th:object="${quizset}" class="row g-6">
+		<div class="row g-6">
+    		<label for="quizsetLabel" class="form-label">クイズ内容</label>
+			<p th:text="*{quiz}"></p>
+  		</div>
+  		<div class="row g-6">
+    		<label for="quizsetLabel" class="form-label">答え</label>
+			<p th:text="*{answer1}"></p>
+  		</div>
+		<div class="row g-6">
+    		<label for="quizsetLabel" class="form-label">その他選択肢</label>
+			<p th:text="*{answer2}"></p>
+  		</div>  		
+		<div class="row g-6">
+    		<label for="quizsetLabel" class="form-label">その他選択肢</label>
+			<p th:text="*{answer3}"></p>
+  		</div>	
+		<div class="row g-6">
+    		<label for="quizsetLabel" class="form-label">その他選択肢</label>
+			<p th:text="*{registed_by}"></p>
+  		</div>			
+		<div class="row g-6">
+    		<label for="quizsetLabel" class="form-label">その他選択肢</label>
+			<p th:text="*{created_at}"></p>
+  		</div>			
+		<div class="row g-6">
+    		<label for="quizsetLabel" class="form-label">その他選択肢</label>
+			<p th:text="*{updated_at}"></p>
+  		</div>			
+	</div>
+</body>
+</html>

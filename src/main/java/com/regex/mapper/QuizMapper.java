@@ -26,4 +26,10 @@ public interface QuizMapper {
     /* csvファイルから問題を作成する*/
     public void createCsvQuiz(QuizDto dto);
     
+	  /**
+	   * クイズセット情報取得(1件) 
+	   * @return 検索結果
+	   */
+  public List<Quiz> selectQuizset(int id);
+    
 }

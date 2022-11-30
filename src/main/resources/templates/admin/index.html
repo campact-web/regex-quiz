@@ -9,29 +9,33 @@
 <body>
 	<h2>クイズ一覧画面</h2>
 	<a href="./new">クイズを登録する</a>
+	<a href="/play">クイズで遊ぶ</a>
 	<th:block th:if="${successMsgFlg}">
 		<div class="alert alert-primary" role="alert"><p>登録完了しました。</p></div>
 	</th:block>
 	<table border="0">
 		<thead>
 			<tr>
-				<th>id</th>
+				<th>全選択<input class="form-check-input" type="checkbox"  id="checkbox_all"></th>
 				<th>問題</th>
 				<th>答え</th>
 				<th>選択肢2</th>
 				<th>選択肢3</th>
-				<th>編集</th>
+				<th>詳細</th>
 		<thead>
 		<tbody>
 			<tr th:each="quiz: ${quizList}" th:object="${quiz}">
-				<td th:text="${quiz.id}"></td>
+				<td><input class="form-check-input checkbox_list" type="checkbox" name="checkbox_list"></td>
 				<td th:text="${quiz.quiz}"></td>
 				<td th:text="${quiz.answer1}" class="text-danger"></td>
 				<td th:text="${quiz.answer2}"></td>
 				<td th:text="${quiz.answer3}"></td>
-				<td><button type="button" class="btn btn-outline-info">編集</button></td>
+				<td><a th:href="@{'/admin/show/' + ${quiz.id}}" class="btn btn-secondary"></a></a></td>
+<!-- 				<td></td> -->
+<!-- 				<td><button type="button" onclick="location.href='@{/admin/show/3}'" class="btn btn-outline-info">詳細</button></td> -->
 			</tr>
 		</tbody>
 	</table>
+	<script th:src="@{/js/admin/index.js}"></script>
 </body>
 </html>
