@@ -40,6 +40,8 @@ public class QuizController {
     private int correctCount = 0;
     /* メッセージ */
     private String message = null;
+    /* 答え合わせ済みフラグ*/
+    private boolean answerCheckedFlg = false;
     /* セッション */
     private List<Quiz> session_quizPlayList = null;
     private Quiz session_oneQuiz = null;
@@ -116,9 +118,12 @@ public class QuizController {
         radioAnswer.put(3, oneQuiz.getAnswer3());
         session.setAttribute("session_radioAnswer", radioAnswer);
 
+        answerCheckedFlg = false;
+
         model.addAttribute("oneQuiz", oneQuiz);
         model.addAttribute("quizNumber", quizNumber);
         model.addAttribute("radioAnswer", radioAnswer);
+        model.addAttribute("answerCheckedFlg", answerCheckedFlg);
         return "play";
     }
 
@@ -162,11 +167,13 @@ public class QuizController {
         } else {
             message = "不正解！！";
         }
+        answerCheckedFlg = true;
 
         model.addAttribute("message", message);
         model.addAttribute("oneQuiz", oneQuiz);
         model.addAttribute("quizNumber", quizNumber);
         model.addAttribute("radioAnswer", radioAnswer);
+        model.addAttribute("answerCheckedFlg", answerCheckedFlg);
         return "play";
     }
 }
