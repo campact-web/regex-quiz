@@ -1,5 +1,7 @@
 package com.regex.entity;
 
+import java.sql.Timestamp;
+
 import lombok.Data;
 
 @Data
@@ -12,11 +14,11 @@ public class Quiz {
 	/* 登録者*/
 	private String registed_by;
 	/* 作成日*/
-	private String created_at;
+	private Timestamp created_at;
 	/* 更新者*/
 	private String updated_by;
 	/* 更新日*/
-	private String updated_at;
+	private Timestamp updated_at;
 	
 	private String is_deleted;
 }
