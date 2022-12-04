@@ -40,31 +40,14 @@ public class QuizController {
     private int correctCount = 0;
     /* メッセージ */
     private String message = null;
+    /* 答え合わせ済みフラグ*/
+    private boolean answerCheckedFlg = false;
     /* セッション */
     private List<Quiz> session_quizPlayList = null;
     private Quiz session_oneQuiz = null;
     private int[] session_quizNumber = null;
     private Map<Integer, String> session_radioAnswer = null;
     private int session_correctCount = 0;
-
-
-//	@RequestMapping(value = "/quiz")
-//	public String getUserQuiz(Model model) {
-//		List<Integer> quizNumberList = new ArrayList<Integer>();
-//		// 問題をランダムに10問取得する
-//		List<Quiz> quizList = quizMapper.selectQuiz10();
-//		Integer[] quizNumber = { 1, 2, 3 };
-//		List<Integer> tmpList = Arrays.asList(quizNumber);
-//		// 選択肢1~3をランダムに表示するためのリストを生成
-//		for (int i = 0; i < 10; i++) {
-//			Collections.shuffle(tmpList);
-//			quizNumberList.addAll(tmpList);
-//		}
-//		model.addAttribute("quizList", quizList);
-//		model.addAttribute("quizNumberList", quizNumberList);
-//		return "quiz";
-//	}
-
 
     /* クイズを出題する-10問 */
     @GetMapping(value = "/play")
@@ -74,22 +57,12 @@ public class QuizController {
 
         //➁セッションに前回の値があった場合（第二問目以降）
         if(session.getAttribute("session_quizPlayList") != null) {
-            //正誤判定を行う
-//			System.out.println(str);
-//            if(quizForm.getAnswer1() != null) {
-//                //正解の場合、モーダル
-//                System.out.println("正解です");
-//                correctCount++;
-//                System.out.println(correctCount);
-//            }
-
            // 10問出題済みなら結果画面に遷移する
             i = (int)session.getAttribute("count");
             if(i >= 10) {
                 session.removeAttribute("count");
                 session.removeAttribute("session_quizPlayList");
-                System.out.println("10問終了です。");
-                return "result";
+                return "redirect:result";
             }
             quizPlayList = (List<Quiz>)session.getAttribute("session_quizPlayList");
         }
@@ -117,9 +90,12 @@ public class QuizController {
         radioAnswer.put(3, oneQuiz.getAnswer3());
         session.setAttribute("session_radioAnswer", radioAnswer);
 
+        answerCheckedFlg = false;
+
         model.addAttribute("oneQuiz", oneQuiz);
         model.addAttribute("quizNumber", quizNumber);
         model.addAttribute("radioAnswer", radioAnswer);
+        model.addAttribute("answerCheckedFlg", answerCheckedFlg);
         return "play";
     }
 
@@ -163,14 +139,13 @@ public class QuizController {
         } else {
             message = "不正解！！";
         }
+        answerCheckedFlg = true;
 
         model.addAttribute("message", message);
         model.addAttribute("oneQuiz", oneQuiz);
         model.addAttribute("quizNumber", quizNumber);
         model.addAttribute("radioAnswer", radioAnswer);
-        // 以下だとmessageの値が引き継がれない
-        // return "redirect:/play";
-        // return getQuizPlay(model, request, response);
+        model.addAttribute("answerCheckedFlg", answerCheckedFlg);
         return "play";
     }
 }

@@ -4,8 +4,8 @@
 </head>
     <body>
         <h1>結果ページです。</h1>
-        <p><b>10問中、</b></p>
-        <p th:text="${correctCount}">問正解！</p>
+        <p><b>10問中</b></p>
+        <p th:text="${correctCount} + '問正解！'"></p>
         <a href="./top">トップページに戻る</a>
     </body>
 </html>

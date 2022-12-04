@@ -13,7 +13,7 @@ public class ResultController {
     public String getResult(Model model, HttpServletRequest request) {
         // セッションから正答数を取得する
         HttpSession session = request.getSession();
-        int correctCount = (int) session.getAttribute("session_correctCount");
+        int correctCount = (int)session.getAttribute("session_correctCount");
         model.addAttribute("correctCount", correctCount);
         return "result";
     }
