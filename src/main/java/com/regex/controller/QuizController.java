@@ -88,8 +88,7 @@ public class QuizController {
             if(i >= 10) {
                 session.removeAttribute("count");
                 session.removeAttribute("session_quizPlayList");
-                System.out.println("10問終了です。");
-                return "result";
+                return "redirect:result";
             }
             quizPlayList = (List<Quiz>)session.getAttribute("session_quizPlayList");
         }
@@ -168,9 +167,6 @@ public class QuizController {
         model.addAttribute("oneQuiz", oneQuiz);
         model.addAttribute("quizNumber", quizNumber);
         model.addAttribute("radioAnswer", radioAnswer);
-        // 以下だとmessageの値が引き継がれない
-        // return "redirect:/play";
-        // return getQuizPlay(model, request, response);
         return "play";
     }
 }
