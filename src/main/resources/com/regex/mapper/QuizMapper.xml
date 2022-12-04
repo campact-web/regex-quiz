@@ -5,17 +5,11 @@
 <mapper namespace="com.regex.mapper.QuizMapper">
 	<!-- クイズを全件検索 -->
     <select id="selectAll" resultType="com.regex.entity.Quiz">
-        select id, quiz, answer1, answer2, answer3 from quiz;
+        SELECT * FROM quiz ORDER BY updated_at DESC;
     </select>
     <!-- クイズをランダムに10問セレクトする -->
     <select id="selectQuiz10" resultType="com.regex.entity.Quiz">
-    	select id, quiz, answer1, answer2, answer3 from quiz ORDER BY random() LIMIT 10;
-    </select>
-    <!-- クイズをランダムに1問セレクトする -->
-    <select id="selectQuiz1" resultType="com.regex.entity.Quiz">
-    	select id, quiz, answer1, answer2, answer3 from quiz 
-    	WHERE id not exists (#{id});
-    	ORDER BY random() LIMIT 1;
+    	SELECT id, quiz, answer1, answer2, answer3 FROM quiz ORDER BY RANDOM() LIMIT 10;
     </select>
     <!-- クイズ作成 -->
 	<insert id="insertQuiz" parameterType="com.regex.entity.Quiz">
@@ -27,9 +21,8 @@
 		INSERT INTO quiz (quiz, answer1, answer2, answer3, created_at, updated_at)
 		VALUES (#{quiz}, #{answer1}, #{answer2}, #{answer3}, current_timestamp, current_timestamp);
 	</insert>
-	
 	 <!-- クイズセット情報取得(1件) --> 
     <select id="selectQuizset" resultType="com.regex.entity.Quiz">
-        select id, quiz, answer1, answer2, answer3 from quiz where id=#{id};
+        SELECT id, quiz, answer1, answer2, answer3 FROM quiz WHERE id=#{id};
     </select>
 </mapper>

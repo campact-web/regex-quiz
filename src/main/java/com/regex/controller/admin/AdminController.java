@@ -21,7 +21,6 @@ import com.regex.dto.QuizDto;
 import com.regex.entity.Quiz;
 import com.regex.form.QuizForm;
 import com.regex.mapper.QuizMapper;
-import com.regex.mapper.admin.AdminMapper;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,9 +28,6 @@ public class AdminController {
 
 	@Autowired
     QuizMapper quizMapper;
-	
-	@Autowired
-	AdminMapper adminMapper;
 	
 	/* サクセスメッセージフラグ*/
 	private boolean successMsgFlg = false;
@@ -127,10 +123,4 @@ public class AdminController {
 		return "admin/edit";
 	}
 	
-//	  @GetMapping("/user/{id}")
-//	  public String displayView(@PathVariable Long id, Model model) {
-//	    User user = userService.findById(id);
-//	    model.addAttribute("userData", user);
-//	    return "user/view";
-//	  }
 }

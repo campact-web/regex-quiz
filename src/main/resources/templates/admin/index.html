@@ -34,9 +34,9 @@
 				<td th:text="*{answer1}" class="text-danger"></td>
 				<td th:text="*{answer2}"></td>
 				<td th:text="*{answer3}"></td>
-				<!-- 				<td><a th:href="@{'/admin/show/' + ${quiz.id}}" class="btn btn-secondary">編集</a></td> -->
 				<td>
-					<button type="button" class="btn btn-secondary" th:data-whatever="${quiz}" data-bs-toggle="modal" data-bs-target="#editQuizModal">
+					<!-- data-selectedquiz で、モーダル表示時に固有の値を渡す(data-***: ***部分は大文字不可-->
+					<button type="button" class="btn btn-secondary" th:data-selectedquiz="${quiz}" data-bs-toggle="modal" data-bs-target="#editQuizModal">
 					  編集
 					</button>
 				</td>

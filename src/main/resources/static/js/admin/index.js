@@ -10,11 +10,10 @@ $('#checkbox_all').on('click', function() {
 //モーダル
 $('#editQuizModal').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget); //モーダルを呼び出すときに使われたボタンを取得
-  let recipient = button.data('whatever'); //data-whatever の値を取得
-  let array = recipient.split(",");
+  let selectedquiz = button.data('selectedquiz'); //data-whatever の値を文字列で取得
+  let array = selectedquiz.split(",");
 
-  //Ajaxの処理はここに
-  var modal = $(this); //モーダルを取得
+  let modal = $(this); //モーダルを取得
     for(let i = 0; i < array.length; i ++) {
 	console.log(array[i]);
   }
