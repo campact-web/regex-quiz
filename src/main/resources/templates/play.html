@@ -7,27 +7,24 @@
     <form method="post" th:action="@{/play}">
         <h3 th:text="|第__${session.count}__問|"></h3>
         <h4 th:text="${oneQuiz.quiz}" /></h4>
-            <!-- <th:block th:each="i:${#numbers.sequence(0, 2)}">
-                <span th:text="|${oneQuiz.answer__${quizNumber[i]}__}|" /></span>
-            </th:block> -->
-            <div class="form-check-inline">
-                <th:block th:each="i:${#numbers.sequence(0, 2)}">
-                    <th:block th:each="item : ${radioAnswer}">
-                        <th:block th:if="${quizNumber[i] == item.key.intValue()}">
-                            <input type="radio" class="form-check-input" th:text="${item.value}" th:value="${item.value}" name="selectedAnswer">
-                        </th:block>
+        <div class="form-check-inline">
+            <th:block th:each="i:${#numbers.sequence(0, 2)}">
+                <th:block th:each="item : ${radioAnswer}">
+                    <th:block th:if="${quizNumber[i] == item.key.intValue()}">
+                        <input type="radio" class="form-check-input" th:text="${item.value}" th:value="${item.value}" name="selectedAnswer">
                     </th:block>
                 </th:block>
+            </th:block>
+        </div>
+        <th:block th:if="${answerCheckedFlg}">
+            <div class="alert alert-primary" role="alert">
+                <p th:text="${message}"></p>
             </div>
-            <th:block th:if="${answerCheckedFlg}">
-                <div class="alert alert-primary" role="alert">
-                    <p th:text="${message}"></p>
-                </div>
-                <button type="button" class="btn btn-primary" onclick="location.href='./play'">次へ</button>
-            </th:block>
-            <th:block th:unless="${answerCheckedFlg}">
-                <button type="submit" name="answer" class="btn btn-primary">回答する</button>
-            </th:block>
+            <button type="button" class="btn btn-primary" onclick="location.href='./play'">次へ</button>
+        </th:block>
+        <th:block th:unless="${answerCheckedFlg}">
+            <button type="submit" name="answer" class="btn btn-primary">回答する</button>
+        </th:block>
     </form>
 </body>
 </html>

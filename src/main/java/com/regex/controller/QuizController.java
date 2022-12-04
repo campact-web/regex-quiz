@@ -49,25 +49,6 @@ public class QuizController {
     private Map<Integer, String> session_radioAnswer = null;
     private int session_correctCount = 0;
 
-
-//	@RequestMapping(value = "/quiz")
-//	public String getUserQuiz(Model model) {
-//		List<Integer> quizNumberList = new ArrayList<Integer>();
-//		// 問題をランダムに10問取得する
-//		List<Quiz> quizList = quizMapper.selectQuiz10();
-//		Integer[] quizNumber = { 1, 2, 3 };
-//		List<Integer> tmpList = Arrays.asList(quizNumber);
-//		// 選択肢1~3をランダムに表示するためのリストを生成
-//		for (int i = 0; i < 10; i++) {
-//			Collections.shuffle(tmpList);
-//			quizNumberList.addAll(tmpList);
-//		}
-//		model.addAttribute("quizList", quizList);
-//		model.addAttribute("quizNumberList", quizNumberList);
-//		return "quiz";
-//	}
-
-
     /* クイズを出題する-10問 */
     @GetMapping(value = "/play")
     public String getQuizPlay(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -76,15 +57,6 @@ public class QuizController {
 
         //➁セッションに前回の値があった場合（第二問目以降）
         if(session.getAttribute("session_quizPlayList") != null) {
-            //正誤判定を行う
-//			System.out.println(str);
-//            if(quizForm.getAnswer1() != null) {
-//                //正解の場合、モーダル
-//                System.out.println("正解です");
-//                correctCount++;
-//                System.out.println(correctCount);
-//            }
-
            // 10問出題済みなら結果画面に遷移する
             i = (int)session.getAttribute("count");
             if(i >= 10) {
