@@ -27,74 +27,65 @@ public class QuizController {
     @Autowired
     QuizMapper quizMapper;
 
-
+    /* 問題リスト */
     private List<Quiz> quizPlayList = new ArrayList<>();
-
     /* 問題の項番 */
-    private int i = 0;
+    private int count = 0;
     /* 出題する問題 */
     private Quiz oneQuiz = null;
     /* ラジオボタン  */
     Map<Integer, String> radioAnswer = new HashMap<>();
     /* 正解数 */
-    private int correctCount = 0;
+    private int answerNum = 0;
     /* メッセージ */
     private String message = null;
     /* 答え合わせ済みフラグ*/
     private boolean answerCheckedFlg = false;
-    /* セッション */
-    private List<Quiz> session_quizPlayList = null;
-    private Quiz session_oneQuiz = null;
-    private int[] session_quizNumber = null;
-    private Map<Integer, String> session_radioAnswer = null;
-    private int session_correctCount = 0;
 
     /* クイズを出題する-10問 */
     @GetMapping(value = "/play")
     public String getQuizPlay(Model model, HttpServletRequest request, HttpServletResponse response) {
-        //➀セッションの作成・取得
+        // セッションの作成・取得
         HttpSession session = request.getSession();
 
-        //➁セッションに前回の値があった場合（第二問目以降）
-        if(session.getAttribute("session_quizPlayList") != null) {
-           // 10問出題済みなら結果画面に遷移する
-            i = (int)session.getAttribute("count");
-            if(i >= 10) {
-                session.removeAttribute("count");
-                session.removeAttribute("session_quizPlayList");
-                return "redirect:result";
-            }
-            quizPlayList = (List<Quiz>)session.getAttribute("session_quizPlayList");
-        }
-        //問題出題(初回)
-        else{
-            //10問ランダムに取得する
+        // 問題取得(第一問目)
+        if(session.getAttribute("quizPlayList") == null) {
+            // クイズ再度実行する際の不具合解消に必要
+            count = 0;
+            answerNum = 0;
+            // 10問ランダムに取得する
             quizPlayList = quizMapper.selectQuiz10();
         }
-        i++;
+        // セッションに問題リストが存在する場合（第二問目以降）
+        else{
+            // 10問出題済みなら結果画面に遷移する
+            count = (int)session.getAttribute("count");
+            if(count >= 10) {
+                return "redirect:result";
+            }
+            quizPlayList = (List<Quiz>)session.getAttribute("quizPlayList");
+        }
+        count++;
 
-        //問題リストから1問取得する
+        // 問題リストから1問取得する
         oneQuiz = quizPlayList.get(0);
-        session.setAttribute("count", i);
-        session.setAttribute("session_quizPlayList", quizPlayList);
-        session.setAttribute("session_oneQuiz", oneQuiz);
+        session.setAttribute("count", count);
+        session.setAttribute("quizPlayList", quizPlayList);
+        session.setAttribute("oneQuiz", oneQuiz);
 
         // 選択肢1~3をランダムに表示するためのリストを生成
-        int[] quizNumber = { 1, 2, 3 };
-        shuffle(quizNumber);
-        session.setAttribute("session_quizNumber", quizNumber);
+        int[] random = { 1, 2, 3 };
+        shuffle(random);
+        session.setAttribute("random", random);
 
         // ラジオボタン
         radioAnswer.put(1, oneQuiz.getAnswer1());
         radioAnswer.put(2, oneQuiz.getAnswer2());
         radioAnswer.put(3, oneQuiz.getAnswer3());
-        session.setAttribute("session_radioAnswer", radioAnswer);
+        session.setAttribute("radioAnswer", radioAnswer);
 
         answerCheckedFlg = false;
 
-        model.addAttribute("oneQuiz", oneQuiz);
-        model.addAttribute("quizNumber", quizNumber);
-        model.addAttribute("radioAnswer", radioAnswer);
         model.addAttribute("answerCheckedFlg", answerCheckedFlg);
         return "play";
     }
@@ -121,30 +112,26 @@ public class QuizController {
     public String checkAnswer(@RequestParam String selectedAnswer, Model model, HttpServletRequest request, HttpServletResponse response) {
         // セッション情報を取得
         HttpSession session = request.getSession();
-        oneQuiz = (Quiz)session.getAttribute("session_oneQuiz");
-        int[] quizNumber = (int[])session.getAttribute("session_quizNumber");
-        radioAnswer = (Map<Integer, String>)session.getAttribute("session_radioAnswer");
+        oneQuiz = (Quiz)session.getAttribute("oneQuiz");
+        radioAnswer = (Map<Integer, String>)session.getAttribute("radioAnswer");
         // 出題した問題の正答を取得
         String answer = oneQuiz.getAnswer1();
 
         // 出題した問題をリストから削除する
         quizPlayList.remove(0);
-        session.setAttribute("session_quizPlayList", quizPlayList);
+        session.setAttribute("quizPlayList", quizPlayList);
 
         // 答え合わせを行う
         if (selectedAnswer.equals(answer)) {
             message = "正解です！！";
-            correctCount++;
-            session.setAttribute("session_correctCount", correctCount);
+            answerNum++;
+            session.setAttribute("answerNum", answerNum);
         } else {
             message = "不正解！！";
         }
         answerCheckedFlg = true;
 
         model.addAttribute("message", message);
-        model.addAttribute("oneQuiz", oneQuiz);
-        model.addAttribute("quizNumber", quizNumber);
-        model.addAttribute("radioAnswer", radioAnswer);
         model.addAttribute("answerCheckedFlg", answerCheckedFlg);
         return "play";
     }
