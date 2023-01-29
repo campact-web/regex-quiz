@@ -4,28 +4,10 @@
 <link th:href="@{/css/top.css}" rel="stylesheet">
 </head>
 <body>
-    <!-- Header Start -->
-    <header class="site-header">
-        <div class="wrapper site-header__wrapper">
-            <a href="#" class="brand">正規表現クイズ</a>
-            <nav class="nav">
-                <button class="nav__toggle" aria-expanded="false" type="button">
-                    menu</button>
-                <ul class="nav__wrapper">
-                    <li class="nav__item"><a href="#">Home</a></li>
-                    <li class="nav__item"><a href="#">About</a></li>
-                    <li class="nav__item"><a href="#">Services</a></li>
-                    <li class="nav__item"><a href="#">Contact</a></li>
-                    <li class="nav__item"><a href="/admin/index">問題作成</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-        <p></p>
-    <!-- <form method="post" th:action="@{/play}">
-        <input type="submit" name="play" value="スタート">
-    </form> -->
-    <a class="btnStart" href="./play">スタート</a>
-    <a href="./result">結果画面(仮)</a>
+    <div th:replace="common :: header"></div>
+
+    <a href="./play" class="btn-start">スタート！</a>
+
+    <div th:replace="common :: footer"></div>
 </body>
 </html>

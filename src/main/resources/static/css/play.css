@@ -1,0 +1,10 @@
+.container {
+    background-color: #fff;
+    margin: 80px auto;
+}
+
+.headline {
+    font-size: 150%;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+}
