@@ -4,51 +4,48 @@
 <meta charset="UTF-8" />
 <title>new quiz</title>
 <head th:replace="common :: meta_header('New',~{::link},~{::script})">
+<link th:href="@{/css/admin/new.css}" rel="stylesheet">
 </head>
 <body>
-	<h4>クイズ登録画面</h4>
-	<a href="./index">クイズ一覧画面へ</a>
-	<form method="post" th:action="@{/admin/new}">
-		<div class="mb-3">
-			<label for="quizInput" class="form-label">問題：</label>
-			<input type="text" name="quiz" class="form-control" id="quizInput" aria-describedby="quizTitleHelp">
-    		<div id="quizTitleHelp" class="form-text">問題文を入力してください</div>
-		</div>
-		<div class="mb-3">
-			<label for="answer1Input" class="form-label">解答：</label>
-			<input type="text" name="answer1" class="form-control" id="answer1Input" aria-describedby="answer1Help">
-    		<div id="answer1Help" class="form-text">解答を入力してください</div>
-		</div>
-		<div class="mb-3">
-			<label for="answer2Input" class="form-label">選択肢：</label>
-			<input type="text" name="answer2" class="form-control" id="answer2Help">
-    		<div id="answer2Help" class="form-text">その他選択肢を入力してください</div>			
-		</div>
-		<div class="mb-3">
-			<label for="answer3Input" class="form-label">選択肢：</label>
-			<input type="text" name="answer3" class="form-control" id="answer3Help">
-    		<div id="answer3Help" class="form-text">その他選択肢を入力してください</div>			
-		</div>											
-<!-- 		<p>問題：<input type="text" name="quiz" placeholder="問題文を入力してください" /></p> -->
-<!-- 		<p>解答：<input type="text" name="answer1" /></p> -->
-<!-- 		<p>選択肢：<input type="text" name="answer2" /></p> -->
-<!-- 		<p>選択肢：<input type="text" name="answer3" /></p> -->
-	    <button type="submit" class="btn btn-primary">登録</button>
-<!-- 		<p><input type="submit" value="登録" />	</p> -->
-	</form>
-	<h4>csvファイルアップロード</h4>
-	<p>csvファイルからクイズを作成する。一括登録が可能。</p>
-	<form method="post" action="upload" enctype="multipart/form-data">
-		<div class="mb-3">
-	  		<label for="formFile" class="form-label">csvファイルを選択</label>
-	  		<input class="form-control" type="file" name="file" id="formFile">
-		</div>
-		<div class="mb-3">
-	  		<label for="formFile" class="form-label">csvファイルを選択</label>
-	  		<button type="submit" name="upload_file" class="btn btn-primary">ファイルをアップロードする</button>
-		</div>
-<!-- 		<p><input type="file" name="file"></p> -->
-<!-- 		<p><input type="submit" name="upload_file" value="ファイルをアップロードする"></p> -->
-	</form>
+	<div th:replace="admin/header::admin-header"></div>
+	<div class="container">
+		<h4>クイズを作成する</h4>
+		<form method="post" th:action="@{/admin/new}" class="form-control mb-5">
+			<div class="mb-3">
+				<label for="quizInput" class="form-label">問題：</label>
+				<input type="text" name="quiz" class="form-control" id="quizInput" aria-describedby="quizTitleHelp">
+	    		<div id="quizTitleHelp" class="form-text">問題文を入力してください</div>
+			</div>
+			<div class="mb-3">
+				<label for="answer1Input" class="form-label">解答：</label>
+				<input type="text" name="answer1" class="form-control" id="answer1Input" aria-describedby="answer1Help">
+	    		<div id="answer1Help" class="form-text">解答を入力してください</div>
+			</div>
+			<div class="mb-3">
+				<label for="answer2Input" class="form-label">選択肢：</label>
+				<input type="text" name="answer2" class="form-control" id="answer2Help">
+	    		<div id="answer2Help" class="form-text">その他選択肢を入力してください</div>			
+			</div>
+			<div class="mb-3">
+				<label for="answer3Input" class="form-label">選択肢：</label>
+				<input type="text" name="answer3" class="form-control" id="answer3Help">
+	    		<div id="answer3Help" class="form-text">その他選択肢を入力してください</div>			
+			</div>											
+		    <button type="button" class="btn btn-outline-info">登録</button>
+		</form>
+	
+		<h4>クイズを一括登録する</h4>
+		<p>csvファイルをアップロードするだけでまとめてクイズの登録ができる。</p>
+		<form method="post" action="upload" enctype="multipart/form-data" class="form-control">
+			<div class="mb-3">
+		  		<label for="formFile" class="form-label">csvファイルを選択</label>
+		  		<input class="form-control" type="file" name="file" id="formFile">
+			</div>
+			<div class="mb-3">
+		  		<label for="formFile" class="form-label">csvファイルを選択</label>
+		  		<button type="submit" name="upload_file" class="btn btn-outline-info">アップロード</button>
+		  	</div>
+		</form>
+	</div>
 </body>
 </html>

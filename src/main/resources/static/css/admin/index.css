@@ -15,3 +15,8 @@ table td {
   color: gray;
   border-bottom: 1px solid gray;
 }
+
+.container{
+        align-items: center;
+        margin: 30px;
+    }

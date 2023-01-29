@@ -11,9 +11,23 @@ $('#checkbox_all').on('click', function() {
 $('#editQuizModal').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget); //モーダルを呼び出すときに使われたボタンを取得
   let selectedquiz = button.data('selectedquiz'); //data-whatever の値を文字列で取得
-  let array = selectedquiz.split(",");
+//  console.log(selectedquiz);
+//  console.log(JSON.stringify(selectedquiz));
+//  let array = selectedquiz.split(",");
 
   let modal = $(this); //モーダルを取得
+    console.log(selectedquiz);
+  let quiz = JSON.stringify(selectedquiz);
+console.log(quiz);
+//JSON形式にする
+quiz = quiz.replace("(", "={");
+quiz = quiz.replace(")", "}");
+quiz = quiz.replace('=', '="');
+
+console.log(quiz);
+let hoge = JSON.stringify(quiz);
+console.log(hoge.quiz);
+  let array = selectedquiz.split(",");
     for(let i = 0; i < array.length; i ++) {
 	console.log(array[i]);
   }
