@@ -1,6 +1,10 @@
-.container {
+body {
+    background-image: url(/img/background.jpg);
+}
+
+.content {
     background-color: #fff;
-    margin: 80px auto;
+    margin: 80px auto 0;
 }
 
 .headline {
