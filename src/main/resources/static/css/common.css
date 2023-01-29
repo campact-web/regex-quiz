@@ -1,3 +1,78 @@
+/*
+** The Header Media Queries **
+** Tweak as per your needs **
+*/
+
+* {
+    color: #333;
+}
+
 body {
-	font-family: 'Kiwi Maru', serif;
+    font-family: 'Kiwi Maru', serif;
+}
+
+.header-container {
+    background-color: #fff;
+    color: #666;
+    height: 100px;
+}
+
+.logo {
+    font-size: 24px;
+    color: #666;
+    letter-spacing: 0.05em;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a.btn-start {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    width: 240px;
+    margin: 200px auto;
+    padding: 1rem 4rem;
+    font-weight: bold;
+    border-radius: 100vh;
+    border-bottom: 8px solid #294d4c;
+    background: #3c7170;
+    color: #fff;
+}
+a.btn-start:hover {
+    margin-top: 207px;
+    border-bottom: 1px solid #294d4c;
+    color: #fff;
+}
+
+.btn-main {
+    background-color: #3c7170;
+    color: #fff;
+    padding: 8px 40px;
+}
+
+.btn-main:hover {
+    background-color: #519998;
+    color: #fff;
+}
+
+.btn-sub {
+    background-color: #666;
+    color: #fff;
+    padding: 8px 40px;
+}
+
+.btn-sub:hover {
+    background-color: #888;
+    color: #fff;
+}
+
+footer {
+    background-color: #555273;
+    height: 80px;
+}
+footer.a {
+    color: #fff !important;
 }

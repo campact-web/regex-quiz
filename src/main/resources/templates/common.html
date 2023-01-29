@@ -15,12 +15,26 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap" rel="stylesheet">
-	<!-- 共通css -->
-	<link th:href="@{/css/common.css}" rel="stylesheet">
+    <!-- CSS -->
+    <link th:href="@{/css/common.css}" rel="stylesheet">
     <!-- 各画面で読み込むCSS/JS -->
     <th:block th:replace="${links} ?: _" />
     <th:block th:replace="${scripts} ?: _" />
 </head>
 <body>
+<header>
+    <div class="header-container">
+        <div class="d-flex align-items-center">
+            <img src="/img/logo.png" height="120" width="120" alt="logo" class="ms-5 me-2">
+            <span class="logo fw-bold">規表現クイズ</span>
+        </div>
+    </div>
+</header>
+
+<footer class="fixed-bottom">
+    <div class="d-flex justify-content-end p-4">
+        <a href="./admin/index">管理者画面へ</a>
+    </div>
+</footer>
 </body>
 </html>
