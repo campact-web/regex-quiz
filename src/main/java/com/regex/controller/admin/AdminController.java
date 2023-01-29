@@ -115,12 +115,12 @@ public class AdminController {
 	}
 	
 	/*
-	 * クイズ編集画面
-	 * 機能: クイズ編集画面を表示する
+	 * クイズ一覧画面　クイズ編集モーダル
+	 * 機能: クイズを更新する
 	 */
-	@RequestMapping(value="/edit")
-	public String editQuiz() {
-		return "admin/edit";
+	@RequestMapping(value="/update")
+	public String updateQuiz() {
+		return "redirect:/admin/index";
 	}
 	
 }
