@@ -5,6 +5,7 @@
 <title>new quiz</title>
 <head th:replace="common :: meta_header('New',~{::link},~{::script})">
 <link th:href="@{/css/admin/new.css}" rel="stylesheet">
+<link th:href="@{/css/admin/header.css}" rel="stylesheet">
 </head>
 <body>
 	<div th:replace="admin/header::admin-header"></div>
@@ -31,7 +32,7 @@
 				<input type="text" name="answer3" class="form-control" id="answer3Help">
 	    		<div id="answer3Help" class="form-text">その他選択肢を入力してください</div>			
 			</div>											
-		    <button type="button" class="btn btn-outline-info">登録</button>
+		    <button type="submit" class="btn btn-outline-info">登録</button>
 		</form>
 	
 		<h4>クイズを一括登録する</h4>
