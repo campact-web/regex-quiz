@@ -70,6 +70,7 @@ public class QuizController {
         // 問題リストから1問取得する
         oneQuiz = quizPlayList.get(0);
         session.setAttribute("count", count);
+        session.setAttribute("answerNum", answerNum);
         session.setAttribute("quizPlayList", quizPlayList);
         session.setAttribute("oneQuiz", oneQuiz);
 
