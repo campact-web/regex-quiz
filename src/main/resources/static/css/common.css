@@ -18,6 +18,10 @@ body {
     letter-spacing: 0.05em;
 }
 
+a {
+    text-decoration: none;
+}
+
 a.btn-start {
     display: block;
     text-align: center;

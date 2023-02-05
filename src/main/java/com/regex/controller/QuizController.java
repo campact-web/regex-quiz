@@ -131,6 +131,7 @@ public class QuizController {
         }
         answerCheckedFlg = true;
 
+        model.addAttribute("selectedAnswer", selectedAnswer);
         model.addAttribute("message", message);
         model.addAttribute("answerCheckedFlg", answerCheckedFlg);
         return "play";
