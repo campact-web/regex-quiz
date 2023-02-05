@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.regex.entity.Quiz;
-import com.regex.mapper.QuizMapper;
+import com.regex.service.QuizService;
 
 @Controller
 public class QuizController {
 
     @Autowired
-    QuizMapper quizMapper;
+    QuizService quizService;
 
     /* 問題リスト */
     private List<Quiz> quizPlayList = new ArrayList<>();
@@ -54,7 +54,7 @@ public class QuizController {
             count = 0;
             answerNum = 0;
             // 10問ランダムに取得する
-            quizPlayList = quizMapper.selectQuiz10();
+            quizPlayList = quizService.selectQuiz10();
         }
         // セッションに問題リストが存在する場合（第二問目以降）
         else{
@@ -131,6 +131,7 @@ public class QuizController {
         }
         answerCheckedFlg = true;
 
+        model.addAttribute("selectedAnswer", selectedAnswer);
         model.addAttribute("message", message);
         model.addAttribute("answerCheckedFlg", answerCheckedFlg);
         return "play";

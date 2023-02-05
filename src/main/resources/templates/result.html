@@ -1,11 +1,21 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="common :: meta_header('Result',~{::link},~{::script})">
+<link th:href="@{/css/play.css}" rel="stylesheet">
 </head>
-    <body>
-        <h1>結果ページです。</h1>
-        <p><b>10問中</b></p>
-        <p th:text="${answerNum} + '問正解！'"></p>
-        <a href="./top">トップページに戻る</a>
-    </body>
+<body>
+    <div th:replace="common :: header"></div>
+
+    <div class="container" style="max-width: 600px;">
+        <div class="content shadow p-5">
+            <div class="headline text-center">結果</div>
+            <div th:text="'正解は' + ${answerNum} + ' / 10問！！'" class="text-center my-5"></div>
+        </div>
+        <div class="text-end">
+            <button type="button" class="btn btn-sub shadow mt-5" onclick="location.href='./top'">トップページに戻る</button>
+        </div>
+    </div>
+
+    <div th:replace="common :: footer"></div>
+</body>
 </html>
