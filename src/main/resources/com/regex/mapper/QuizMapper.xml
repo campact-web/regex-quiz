@@ -4,25 +4,42 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.regex.mapper.QuizMapper">
 	<!-- クイズを全件検索 -->
-    <select id="selectAll" resultType="com.regex.entity.Quiz">
-        SELECT * FROM quiz ORDER BY updated_at DESC;
-    </select>
-    <!-- クイズをランダムに10問セレクトする -->
-    <select id="selectQuiz10" resultType="com.regex.entity.Quiz">
-    	SELECT id, quiz, answer1, answer2, answer3 FROM quiz ORDER BY RANDOM() LIMIT 10;
-    </select>
-    <!-- クイズ作成 -->
+	<select id="selectAll" resultType="com.regex.entity.Quiz">
+		SELECT * FROM quiz ORDER BY updated_at DESC;
+	</select>
+	<!-- クイズをランダムに10問セレクトする -->
+	<select id="selectQuiz10" resultType="com.regex.entity.Quiz">
+		SELECT id, quiz, answer1, answer2, answer3 FROM quiz ORDER BY RANDOM() LIMIT
+		10;
+	</select>
+	<!-- クイズ作成 -->
 	<insert id="insertQuiz" parameterType="com.regex.entity.Quiz">
-		INSERT INTO quiz (quiz, answer1, answer2, answer3, created_at, updated_at)
-		VALUES (#{quiz}, #{answer1}, #{answer2}, #{answer3}, current_timestamp, current_timestamp);
+		INSERT INTO quiz (quiz,
+		answer1, answer2, answer3, created_at, updated_at)
+		VALUES (#{quiz},
+		#{answer1}, #{answer2}, #{answer3}, current_timestamp,
+		current_timestamp);
 	</insert>
 	<!-- csvからクイズ作成 -->
 	<insert id="createCsvQuiz" parameterType="com.regex.entity.Quiz">
-		INSERT INTO quiz (quiz, answer1, answer2, answer3, created_at, updated_at)
-		VALUES (#{quiz}, #{answer1}, #{answer2}, #{answer3}, current_timestamp, current_timestamp);
+		INSERT INTO quiz (quiz,
+		answer1, answer2, answer3, created_at, updated_at)
+		VALUES (#{quiz},
+		#{answer1}, #{answer2}, #{answer3}, current_timestamp,
+		current_timestamp);
 	</insert>
-	 <!-- クイズセット情報取得(1件) --> 
-    <select id="selectQuizset" resultType="com.regex.entity.Quiz">
-        SELECT id, quiz, answer1, answer2, answer3 FROM quiz WHERE id=#{id};
-    </select>
+	<!-- クイズセット情報取得(1件) -->
+	<select id="selectQuizset" resultType="com.regex.entity.Quiz">
+		SELECT id, quiz, answer1, answer2, answer3 FROM quiz WHERE id=#{id};
+	</select>
+	<!-- クイズセット情報更新(1件) -->
+	<update id="updateQuiz" parameterType="com.regex.entity.Quiz">
+		UPDATE
+		quiz
+		SET
+		quiz = #{quiz}, answer1 = #{answer1}, answer2 =
+		#{answer2}, answer3 = #{answer3}, updated_at =
+		current_timestamp
+		WHERE id = #{id}
+	</update>
 </mapper>
